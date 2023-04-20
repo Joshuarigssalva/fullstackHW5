@@ -11,12 +11,12 @@ const PORT = 8000
 const app = express()
 
 //host react app as static files
-app.use(express.static(path.resolve(__dirname, '../client/build')))
+app.use(express.static(path.resolve(__dirname, '../favlinks/build')))
 
 // define some routes
 app.get('/', (request, response) =>{
     // define what should happen
-    response.sendFile(path.resolve(__dirname, '../client/build',
+    response.sendFile(path.resolve(__dirname, '../favlinks/build',
      'index.html'))
 })
 
