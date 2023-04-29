@@ -39,14 +39,20 @@ app.get('/', (request, response) =>{
      'index.html'))
 })
 
-// //new code from tutorial for postgres
-// app.listen(port, () => {
-//     console.log(`App running on port ${port}.`)
-// })
-
-
 // start app at PORT
 app.listen(PORT, () => {
     console.log(`Server is listening on PORT ${PORT}`)
 })
+
+//new code from tutorial for postgres
+const db = require('./queries')
+
+app.get('/namelinks', db.getLinks)
+app.get('/namelinks/:id', db.getLinkById)
+app.post('/namelinks', db.createLink)
+app.put('/namelinks/:id', db.updatedLink)
+app.delete('/namelinks/:id', db.deleteLink)
+
+
+
 
