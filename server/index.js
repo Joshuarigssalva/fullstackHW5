@@ -39,10 +39,10 @@ app.get('/', (request, response) =>{
      'index.html'))
 })
 
-//new code from tutorial for postgres
-app.listen(port, () => {
-    console.log(`App running on port ${port}.`)
-})
+// //new code from tutorial for postgres
+// app.listen(port, () => {
+//     console.log(`App running on port ${port}.`)
+// })
 
 
 // start app at PORT
