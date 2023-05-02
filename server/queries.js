@@ -14,8 +14,26 @@ const pool = new POOL({
 
 // Create all the functions that will be our request handlers in our express server
 
+//class code and notes example
+const creatingLink = (request, response) => {
+    //take the data the user passes us and insert it into our table
+    const name = request.body.name
+    const URL = request.body.URL
+
+    pool.query('INSERT INTO namelinks (name, link) VALUES ($1, $2)', 
+    [name, URL], (error, results) => {
+        if (error) {
+            throw error
+        }
+        response.status(201).send(`Link added with ID: ${results.insertID}`)
+    })
+
+}
+//end of class code and notes example
+
 //GET all links
 const getLinks = (request, response) => {
+    //get back all the data currently in the database
     pool.query('SELECT * FROM namelinks ORDER BY id ASC', 
     (error, results) => {
         if (error) {
@@ -98,6 +116,10 @@ module.exports = {
     createLink,
     updatedLink,
     deleteLink,
+
+    //class code and notes example
+    creatingLink
+    //end of class code and notes and example
 }
 
 

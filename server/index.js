@@ -18,6 +18,12 @@ const app = express()
 app.use(express.static(path.resolve(__dirname, '../favlinks/build')))
 
 
+//Middleware //class code notes
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+
+
+
 //new code from tutorial for postgres
 app.use(bodyParser.json())
 app.use(
@@ -52,6 +58,9 @@ app.get('/namelinks/:id', db.getLinkById)
 app.post('/namelinks', db.createLink)
 app.put('/namelinks/:id', db.updatedLink)
 app.delete('/namelinks/:id', db.deleteLink)
+
+//class code and notes example
+app.post('/new', db.creatingLink)
 
 
 
