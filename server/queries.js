@@ -111,7 +111,7 @@ const deleteLink = (request, response) => {
 }
 
 async function getlink() {
-    
+
 }
 
 module.exports = {
@@ -120,7 +120,7 @@ module.exports = {
     createLink,
     updatedLink,
     deleteLink,
-
+    
     //class code and notes example
     //creatingLink
     //end of class code and notes and example

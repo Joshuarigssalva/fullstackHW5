@@ -23,7 +23,6 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 
-
 //new code from tutorial for postgres
 app.use(bodyParser.json())
 app.use(
