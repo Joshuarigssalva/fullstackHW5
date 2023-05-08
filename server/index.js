@@ -38,7 +38,7 @@ app.get('/', (request, response) => {
 })
 
 
-// define some routes
+// Routes for the client to call
 app.get('/', (request, response) =>{
     // define what should happen
     response.sendFile(path.resolve(__dirname, '../favlinks/build',
@@ -53,14 +53,14 @@ app.listen(PORT, () => {
 //new code from tutorial for postgres
 const db = require('./queries')
 
-app.get('/namelinks', db.getLinks)
-app.get('/namelinks/:id', db.getLinkById)
-app.post('/namelinks', db.createLink)
-app.put('/namelinks/:id', db.updatedLink)
-app.delete('/namelinks/:id', db.deleteLink)
+app.get('/favoritelinks', db.getLinks)
+app.get('/favoritelinks/:id', db.getLinkById)
+app.post('/favoritelinks', db.createLink)
+app.put('/favoritelinks/:id', db.updatedLink)
+app.delete('/favoritelinks/:id', db.deleteLink)
 
 //class code and notes example
-app.post('/new', db.creatingLink)
+//app.post('/new', db.creatingLink)
 
 
 

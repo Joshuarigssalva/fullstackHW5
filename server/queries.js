@@ -15,26 +15,26 @@ const pool = new POOL({
 // Create all the functions that will be our request handlers in our express server
 
 //class code and notes example
-const creatingLink = (request, response) => {
-    //take the data the user passes us and insert it into our table
-    const name = request.body.name
-    const URL = request.body.URL
+    // const creatingLink = (request, response) => {
+    //     //take the data the user passes us and insert it into our table
+    //     const name = request.body.name
+    //     const URL = request.body.URL
 
-    pool.query('INSERT INTO namelinks (name, link) VALUES ($1, $2)', 
-    [name, URL], (error, results) => {
-        if (error) {
-            throw error
-        }
-        response.status(201).send(`Link added with ID: ${results.insertID}`)
-    })
+    //     pool.query('INSERT INTO favoritelinks (name, URL) VALUES ($1, $2)', 
+    //     [name, URL], (error, results) => {
+    //         if (error) {
+    //             throw error
+    //         }
+    //         response.status(201).send(`Link added with ID: ${results.insertID}`)
+    //     })
 
-}
+    // }
 //end of class code and notes example
 
 //GET all links
 const getLinks = (request, response) => {
     //get back all the data currently in the database
-    pool.query('SELECT * FROM namelinks ORDER BY id ASC', 
+    pool.query('SELECT * FROM favoritelinks ORDER BY id ASC', 
     (error, results) => {
         if (error) {
             throw error
@@ -49,7 +49,7 @@ const getLinks = (request, response) => {
 const getLinkById = (request, response) => {
     const id = parseInt(request.params.id)
 
-    pool.query('SELECT * FROM namelinks WHERE id = $1', [id], 
+    pool.query('SELECT * FROM favoritelinks WHERE id = $1', [id], 
     (error, results) => {
         if (error) {
             throw error
@@ -62,10 +62,10 @@ const getLinkById = (request, response) => {
 
 //POST a new link
 const createLink = (request, response) => {
-    const { name, link } = request.body
+    const { name, URL } = request.body
 
-    pool.query('INSERT INTO namelinks (name, link) VALUES ($1, $2) RETURNING *', 
-    [name, link], (error, results) => {
+    pool.query('INSERT INTO favoritelinks (name, URL) VALUES ($1, $2) RETURNING *', 
+    [name, URL], (error, results) => {
         if (error) {
             throw error
         }
@@ -78,11 +78,11 @@ const createLink = (request, response) => {
 //PUT updated data in an existing Link
 const updatedLink = (request, response) => {
     const id = parseInt(request.params.id)
-    const { name, link } = request.body
+    const { name, URL } = request.body
 
     pool.query(
-        'UPDATE namelinks SET name = $1, link = $2 WHERE id = $3',
-        [name, link, id],
+        'UPDATE favoritelinks SET name = $1, URL = $2 WHERE id = $3',
+        [name, URL, id],
         (error, results) => {
             if (error) {
                 throw error
@@ -99,7 +99,7 @@ const updatedLink = (request, response) => {
 const deleteLink = (request, response) => {
     const id = parseInt(request.params.id)
 
-    pool.query('DELETE FROM namelinks WHERE id = $1', 
+    pool.query('DELETE FROM favoritelinks WHERE id = $1', 
     [id], (error, results) => {
         if (error) {
             throw error
@@ -110,6 +110,10 @@ const deleteLink = (request, response) => {
     })
 }
 
+async function getlink() {
+    
+}
+
 module.exports = {
     getLinks,
     getLinkById,
@@ -118,7 +122,7 @@ module.exports = {
     deleteLink,
 
     //class code and notes example
-    creatingLink
+    //creatingLink
     //end of class code and notes and example
 }
 
