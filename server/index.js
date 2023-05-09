@@ -52,11 +52,11 @@ app.listen(PORT, () => {
 //new code from tutorial for postgres
 const db = require('./queries')
 
-app.get('/favoritelinks', db.getLinks)
-app.get('/favoritelinks/:id', db.getLinkById)
-app.post('/favoritelinks', db.createLink)
-app.put('/favoritelinks/:id', db.updatedLink)
-app.delete('/favoritelinks/:id', db.deleteLink)
+app.get('/myfavlinks', db.getLinks)
+app.get('/myfavlinks/:id', db.getLinkById)
+app.post('/myfavlinks', db.createLink)
+app.put('/myfavlinks/:id', db.updatedLink)
+app.delete('/myfavlinks/:id', db.deleteLink)
 
 //class code and notes example
 //app.post('/new', db.creatingLink)

@@ -34,7 +34,7 @@ const pool = new POOL({
 //GET all links
 const getLinks = (request, response) => {
     //get back all the data currently in the database
-    pool.query('SELECT * FROM favoritelinks ORDER BY id ASC', 
+    pool.query('SELECT * FROM myfavlinks ORDER BY id ASC', 
     (error, results) => {
         if (error) {
             throw error
@@ -49,7 +49,7 @@ const getLinks = (request, response) => {
 const getLinkById = (request, response) => {
     const id = parseInt(request.params.id)
 
-    pool.query('SELECT * FROM favoritelinks WHERE id = $1', [id], 
+    pool.query('SELECT * FROM myfavlinks WHERE id = $1', [id], 
     (error, results) => {
         if (error) {
             throw error
@@ -60,12 +60,16 @@ const getLinkById = (request, response) => {
     })
 }
 
+//class notes from 5/8/2023
+
 //POST a new link
 const createLink = (request, response) => {
-    const { name, URL } = request.body
+    const { name, url } = request.body
 
-    pool.query('INSERT INTO favoritelinks (name, URL) VALUES ($1, $2) RETURNING *', 
-    [name, URL], (error, results) => {
+    if (name && url) {
+
+    pool.query('INSERT INTO myfavlinks (name, url) VALUES ($1, $2) RETURNING *', 
+    [name, url], (error, results) => {
         if (error) {
             throw error
         }
@@ -73,16 +77,22 @@ const createLink = (request, response) => {
         response.status(201).send(`Link added with ID: ${results.rows[0].id}`)
 
     })
+
+}
+    else {
+        response.status(403).send("Server is expecting data object with a name and url parameter")
+    }
+    //end of class notes from 5/8/2023
 }
 
 //PUT updated data in an existing Link
 const updatedLink = (request, response) => {
     const id = parseInt(request.params.id)
-    const { name, URL } = request.body
+    const { name, url } = request.body
 
     pool.query(
-        'UPDATE favoritelinks SET name = $1, URL = $2 WHERE id = $3',
-        [name, URL, id],
+        'UPDATE myfavlinks SET name = $1, url = $2 WHERE id = $3',
+        [name, url, id],
         (error, results) => {
             if (error) {
                 throw error
@@ -99,7 +109,7 @@ const updatedLink = (request, response) => {
 const deleteLink = (request, response) => {
     const id = parseInt(request.params.id)
 
-    pool.query('DELETE FROM favoritelinks WHERE id = $1', 
+    pool.query('DELETE FROM myfavlinks WHERE id = $1', 
     [id], (error, results) => {
         if (error) {
             throw error
@@ -108,10 +118,6 @@ const deleteLink = (request, response) => {
           response.status(200).send(`Link deleted with ID: ${id}`)
 
     })
-}
-
-async function getlink() {
-
 }
 
 module.exports = {
